@@ -24,11 +24,11 @@ API REST para gestión de foros de discusión, desarrollada con **Spring Boot 3*
 
 La API está desplegada y disponible en:
 
-🔗 **https://forohud.onrender.com/swagger-ui/index.html**
+🔗 **https://forohubgateway.vercel.app**
 
 Puedes explorar y probar todos los endpoints directamente desde el Swagger UI sin necesidad de configurar nada localmente.
 
-> ⚠️ El servidor está alojado en Render con plan gratuito — si no ha recibido requests recientemente, puede tardar unos segundos en despertar, por favor espere.
+> ⚠️ El servidor está alojado en Koyeb con plan gratuito — si no ha recibido requests recientemente, puede tardar unos segundos en despertar, por favor espere.
  
 ---
 
@@ -50,29 +50,29 @@ Puedes explorar y probar todos los endpoints directamente desde el Swagger UI si
 ## 🛠️ Tecnologías
 
 | Tecnología | Versión | Uso |
-|---|---|---|
-| Java | 17 | Lenguaje principal |
-| Spring Boot | 3.5.11 | Framework base |
-| Spring Security | 6.x | Autenticación y autorización |
-| Spring Data JPA | 3.x | Persistencia de datos |
-| MySQL | 8.x | Base de datos |
-| Flyway | — | Migraciones de BD |
-| Auth0 Java JWT | 4.5.1 | Generación y validación de tokens |
-| Lombok | — | Reducción de boilerplate |
-| SpringDoc OpenAPI | 2.8.16 | Documentación Swagger |
+|---|---------|---|
+| Java | 17      | Lenguaje principal |
+| Spring Boot | 3.5.12  | Framework base |
+| Spring Security | 6.x     | Autenticación y autorización |
+| Spring Data JPA | 3.x     | Persistencia de datos |
+| MySQL | 8.x     | Base de datos |
+| Flyway | —       | Migraciones de BD |
+| Auth0 Java JWT | 4.5.1   | Generación y validación de tokens |
+| Lombok | —       | Reducción de boilerplate |
+| SpringDoc OpenAPI | 2.8.16  | Documentación Swagger |
  
 ---
 
 ## 📁 Arquitectura del proyecto
 
 ```
-src/main/java/api/forohud/
+src/main/java/api/rest/forohub/
 │
-├── ForohudApplication
+├── ForohubApplication
 │
 ├── domain/
 │   ├── auth/
-│   │   ├── AutenticationController.java   # Endpoints de autenticación
+│   │   ├── AuthController.java            # Endpoints de autenticación
 │   │   ├── AuthService.java               # Lógica de login, register, refresh, logout
 │   │   ├── CookieService.java             # Creación y eliminación de cookies
 │   │   ├── RefreshToken.java              # Entidad refresh token
@@ -108,13 +108,13 @@ src/main/java/api/forohud/
     │   └── AccesoDenegadoException.java
     │
     ├── security/
-    │   ├── SecurityConfigurations.java    # Configuración Spring Security
+    │   ├── SecurityConfig.java            # Configuración Spring Security
     │   ├── SecurityFilter.java            # Filtro JWT por request
     │   ├── TokenService.java              # Generación y validación de JWT
     │   └── UserDetailsServiceImpl.java
     │
     └── springdoc/
-        └── SpringDocConfiguration.java    # Configuración Swagger/OpenAPI
+        └── SpringDocConfig.java           # Configuración Swagger/OpenAPI
 ```
  
 ---
@@ -132,14 +132,14 @@ src/main/java/api/forohud/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/JuanLloclla/forohud.git
+git clone https://github.com/JuanLloclla/forohub.git
 cd forohud
 ```
 
 ### 2. Crear la base de datos en MySQL
 
 ```sql
-CREATE DATABASE foro_hud;
+CREATE DATABASE foro_hub;
 ```
 
 ### 3. Configurar las variables de entorno
@@ -148,7 +148,7 @@ El proyecto usa perfiles de Spring (`dev` y `prod`). Para desarrollo, configura 
 
 ```properties
 # Conexión a base de datos
-SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/foro_hud
+SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/foro_hub
 SPRING_DATASOURCE_USERNAME=tu_usuario
 SPRING_DATASOURCE_PASSWORD=tu_contraseña
  
@@ -300,20 +300,20 @@ Si prefieres probar la API con Postman o Insomnia, encontrarás las colecciones 
 
 ```
 docs/
-├── Foro Hud API REST.postman_collection.json
+├── ForoHub-API-REST.postman_collection.json
 └── ForoHud-API-REST-Insomnia_2026-03-21.yaml
 ```
 
 ### Importar en Postman
 
 1. Abre Postman → **Import**
-2. Selecciona `docs/Foro Hud API REST.postman_collection.json`
+2. Selecciona `docs/ForoHub-API-REST.postman_collection.json`
 3. Ve a **Environments** → crea un entorno nuevo con la variable `accessToken` (valor vacío por ahora)
 
 ### Importar en Insomnia
 
 1. Abre Insomnia → **Import** → From File
-2. Selecciona `docs/forohud.insomnia.yaml`
+2. Selecciona `docs/ForoHud-API-REST-Insomnia_2026-03-21.yaml`
 3. Ve a **Environments** → crea una variable `accessToken` (valor vacío por ahora)
 
 ### Flujo de uso
